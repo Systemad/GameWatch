@@ -1,0 +1,17 @@
+﻿- Add filters, such as release date, category, ratings
+- Allow users to create their own "collection", such as wishlist, best RPG, FPS etc
+    -- Private / Public settings
+    -- Add ability to share collection with URL
+    -- Potentially download?
+    -- Potentially Copy paste?
+
+- Add scheduled "newsletter" subscription, to email when games comes out, or X days before
+    -- Add discord / telegram bot, once a week fetch games that comes out within a week, and add tasks
+    -- Email? Although, can be marked as spam. SendGrid from twilio?    
+    
+- Forum / Blog part, similar to discord etc
+    -- Allow people to create INTERNAL reviews, and allow people to comment them
+    -- Open / Closed comments
+    
+- Internal ratings, with starts or 1-10
+    -- Add trending
