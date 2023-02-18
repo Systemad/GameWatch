@@ -19,26 +19,29 @@ public class GameDatabaseApi : IGameDatabaseApi
     public async Task<Game[]> GetGamesAsync(string[] filters)
     {
         var url = "https://api.igdb.com/v4/games".SetQueryParams(new { fields = filters });
-        var reslult = await FetchApi(url);
-        return reslult;
+        var result = await FetchApi<Game[]>(url);
+        return result;
     }
 
-    // https://flurl.dev/docs/configuration/
-    // maybe handle event??
-    // Polly to retry??
-    // 401 request, trycatch handles and sets new accesstoken
-    // Polly / flurl tries request again
-    private async Task<Game[]> FetchApi(Url url)
+    public async Task<Game> GetGameAsync(string id)
+    {
+        var url = "https://api.igdb.com/v4/games".SetQueryParams(
+            new { fields = "*", where_id = id }
+        );
+        var result = await FetchApi<Game>(url);
+        return result;
+    }
+
+    private async Task<T> FetchApi<T>(Url url)
     {
         var clientId = _configuration["Twitch:ClientId"];
         var accessToken = "";
-        var token = "Bearer" + " " + accessToken;
         try
         {
-            var result = await url.WithHeader("Client-ID", clientId)
-                .WithHeader("Authorization", token)
+            var result = await url.WithHeader("Client_Id", clientId)
+                .WithOAuthBearerToken(accessToken)
                 .PostAsync()
-                .ReceiveJson<Game[]>();
+                .ReceiveJson<T>();
             return result;
         }
         catch (FlurlHttpException exception)

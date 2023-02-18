@@ -71,7 +71,7 @@ builder.Services.AddQuartzServer(
     }
 );
 
-// We only have a single client so we'll use the empty name
+/*
 builder.Services.AddHttpClient(
     "GameDatabase",
     client =>
@@ -79,6 +79,7 @@ builder.Services.AddHttpClient(
         client.BaseAddress = new Uri("https://api.igdb.com/v4/");
     }
 );
+*/
 
 var app = builder.Build();
 
