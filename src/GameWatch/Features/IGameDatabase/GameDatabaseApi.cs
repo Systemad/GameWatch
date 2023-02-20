@@ -1,19 +1,24 @@
-﻿using Flurl;
+﻿using System.Net;
+using Flurl;
 using Flurl.Http;
 using GameWatch.Common.Models;
-using Microsoft.Extensions.Caching.Memory;
+using GameWatch.Features.Auth;
+using Polly;
 
 namespace GameWatch.Features.IGameDatabase;
 
 public class GameDatabaseApi : IGameDatabaseApi
 {
-    private readonly IMemoryCache _memoryCache;
     private readonly IConfiguration _configuration;
+    private readonly ITwitchAccessTokenService _twitchAccessTokenService;
 
-    public GameDatabaseApi(IMemoryCache memoryCache, IConfiguration configuration)
+    public GameDatabaseApi(
+        IConfiguration configuration,
+        ITwitchAccessTokenService twitchAccessTokenService
+    )
     {
-        _memoryCache = memoryCache;
         _configuration = configuration;
+        _twitchAccessTokenService = twitchAccessTokenService;
     }
 
     public async Task<Game[]> GetGamesAsync(string[] filters)
@@ -34,25 +39,36 @@ public class GameDatabaseApi : IGameDatabaseApi
 
     private async Task<T> FetchApi<T>(Url url)
     {
+        var token = await _twitchAccessTokenService.GetTwitchAccessTokenAsync(false);
         var clientId = _configuration["Twitch:ClientId"];
-        var accessToken = "";
-        try
-        {
-            var result = await url.WithHeader("Client_Id", clientId)
-                .WithOAuthBearerToken(accessToken)
-                .PostAsync()
-                .ReceiveJson<T>();
-            return result;
-        }
-        catch (FlurlHttpException exception)
-        {
-            // Expire token / Unauthorized, refresh token
-            if (exception.StatusCode == 401)
-            {
-                var tok = new TwitchAccessToken(_memoryCache, _configuration);
-                await tok.FetchTwitchAccessToken();
-            }
-            throw;
-        }
+
+        var authPolicy = Policy
+            .HandleResult<FlurlHttpException>(r => r.StatusCode is (int)HttpStatusCode.Unauthorized)
+            .RetryAsync(
+                1,
+                onRetry: async (ex, retryCount) =>
+                {
+                    token = await _twitchAccessTokenService.GetTwitchAccessTokenAsync(true);
+                }
+            );
+
+        var response = authPolicy.ExecuteAsync(
+            () =>
+                url.WithHeader("Client_Id", clientId)
+                    .WithOAuthBearerToken(token)
+                    .PostAsync()
+                    .ReceiveJson<T>()
+        );
+
+        return response;
     }
+
+    /*
+     *         var token = await _twitchAccessTokenService.GetTwitchAccessTokenAsync(false);
+
+        var result = await url.WithHeader("Client_Id", clientId)
+            .WithOAuthBearerToken(token)
+            .PostAsync()
+            .ReceiveJson<T>();
+     */
 }

@@ -7,8 +7,17 @@ using GameWatch.Persistence;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 using Quartz;
+using Serilog;
+using Serilog.Events;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = new LoggerConfiguration().MinimumLevel
+    .Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+    .WriteTo.Console()
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 // Add services to the container.
 builder.Services
