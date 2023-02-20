@@ -1,8 +1,21 @@
-﻿using Flurl;
+﻿using System.Text.Json.Serialization;
+using Flurl;
 using Flurl.Http;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace GameWatch.Features.Auth;
+
+public class TwitchTokenResponse
+{
+    [JsonPropertyName("access_token")]
+    public string AccessToken { get; set; }
+
+    [JsonPropertyName("expires_in")]
+    public long ExpiresIn { get; set; }
+
+    [JsonPropertyName("token_type")]
+    public string TokenType { get; set; }
+}
 
 public class TwitchAccessTokenService : ITwitchAccessTokenService
 {
@@ -19,26 +32,27 @@ public class TwitchAccessTokenService : ITwitchAccessTokenService
     {
         var clientId = _configuration["Twitch:ClientId"];
         var clientSecret = _configuration["Twitch:ClientSecret"];
-        var token = "";
+        TwitchTokenResponse token = new();
 
         if (unauthorized)
         {
             token = await "https://id.twitch.tv/oauth2/token"
                 .SetQueryParam("client_id", clientId)
                 .SetQueryParam("client_secret", clientSecret)
-                .AllowAnyHttpStatus()
+                //.AllowAnyHttpStatus()
                 .PostAsync()
-                .ReceiveString();
+                .ReceiveJson<TwitchTokenResponse>();
+
             var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(
-                TimeSpan.FromSeconds(5000000)
+                TimeSpan.FromSeconds(token.ExpiresIn)
             );
             _memoryCache.Set("twitchToken", token, cacheEntryOptions);
-            return token;
+            return token.AccessToken;
         }
 
-        if (!_memoryCache.TryGetValue("twitchToken", out string hey))
+        if (!_memoryCache.TryGetValue("twitchToken", out TwitchTokenResponse hey))
             token = hey;
 
-        return token;
+        return token.AccessToken;
     }
 }
