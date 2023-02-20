@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using GameWatch.Data;
+using GameWatch.Features.Auth;
 using GameWatch.Features.IGameDatabase;
 using GameWatch.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,10 @@ Log.Logger = new LoggerConfiguration().MinimumLevel
     .CreateLogger();
 
 builder.Host.UseSerilog();
+
+builder.Services
+    .AddOptions<TwitchOptions>()
+    .Bind(builder.Configuration.GetSection(TwitchOptions.Twitch));
 
 // Add services to the container.
 builder.Services

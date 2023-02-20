@@ -3,17 +3,18 @@ using Flurl;
 using Flurl.Http;
 using GameWatch.Common.Models;
 using GameWatch.Features.Auth;
+using Microsoft.Extensions.Options;
 using Polly;
 
 namespace GameWatch.Features.IGameDatabase;
 
 public class GameDatabaseApi : IGameDatabaseApi
 {
-    private readonly IConfiguration _configuration;
+    private readonly IOptions<TwitchOptions> _configuration;
     private readonly ITwitchAccessTokenService _twitchAccessTokenService;
 
     public GameDatabaseApi(
-        IConfiguration configuration,
+        IOptions<TwitchOptions> configuration,
         ITwitchAccessTokenService twitchAccessTokenService
     )
     {
@@ -40,10 +41,10 @@ public class GameDatabaseApi : IGameDatabaseApi
     private async Task<T> FetchApi<T>(Url url)
     {
         var token = await _twitchAccessTokenService.GetTwitchAccessTokenAsync(false);
-        var clientId = _configuration["Twitch:ClientId"];
+        var clientId = _configuration.Value.ClientId;
 
         var authPolicy = Policy
-            .HandleResult<FlurlHttpException>(r => r.StatusCode is (int)HttpStatusCode.Unauthorized)
+            .Handle<FlurlHttpException>(r => r.StatusCode is (int)HttpStatusCode.Unauthorized)
             .RetryAsync(
                 1,
                 onRetry: async (ex, retryCount) =>
@@ -52,7 +53,7 @@ public class GameDatabaseApi : IGameDatabaseApi
                 }
             );
 
-        var response = authPolicy.ExecuteAsync(
+        var response = await authPolicy.ExecuteAsync(
             () =>
                 url.WithHeader("Client_Id", clientId)
                     .WithOAuthBearerToken(token)
@@ -62,13 +63,22 @@ public class GameDatabaseApi : IGameDatabaseApi
 
         return response;
     }
+}
 
-    /*
-     *         var token = await _twitchAccessTokenService.GetTwitchAccessTokenAsync(false);
+/*
+ *         var response = authPolicy.ExecuteAsync(
+            () =>
+                url.WithHeader("Client_Id", clientId)
+                    .WithOAuthBearerToken(token)
+                    .PostAsync()
+                    .ReceiveJson<T>()
+        );
+ */
+/*
+         var token = await _twitchAccessTokenService.GetTwitchAccessTokenAsync(false);
 
         var result = await url.WithHeader("Client_Id", clientId)
             .WithOAuthBearerToken(token)
             .PostAsync()
             .ReceiveJson<T>();
-     */
-}
+*/

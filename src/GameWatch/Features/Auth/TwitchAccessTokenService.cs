@@ -2,6 +2,7 @@
 using Flurl;
 using Flurl.Http;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Options;
 
 namespace GameWatch.Features.Auth;
 
@@ -20,18 +21,18 @@ public class TwitchTokenResponse
 public class TwitchAccessTokenService : ITwitchAccessTokenService
 {
     private readonly IMemoryCache _memoryCache;
-    private readonly IConfiguration _configuration;
+    private readonly IOptions<TwitchOptions> _config;
 
-    public TwitchAccessTokenService(IMemoryCache memoryCache, IConfiguration configuration)
+    public TwitchAccessTokenService(IMemoryCache memoryCache, IOptions<TwitchOptions> config)
     {
         _memoryCache = memoryCache;
-        _configuration = configuration;
+        _config = config;
     }
 
     public async Task<string> GetTwitchAccessTokenAsync(bool unauthorized)
     {
-        var clientId = _configuration["Twitch:ClientId"];
-        var clientSecret = _configuration["Twitch:ClientSecret"];
+        var clientId = _config.Value.ClientId;
+        var clientSecret = _config.Value.ClientSecret;
         TwitchTokenResponse token = new();
 
         if (unauthorized)
