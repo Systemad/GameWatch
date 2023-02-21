@@ -5,9 +5,11 @@ using GameWatch.Common.Models;
 using GameWatch.Features.Auth;
 using Microsoft.Extensions.Options;
 using Polly;
+using Serilog;
 
 namespace GameWatch.Features.IGameDatabase;
 
+// TODO: Add caching!
 public class GameDatabaseApi : IGameDatabaseApi
 {
     private readonly IOptions<TwitchOptions> _configuration;
@@ -47,8 +49,9 @@ public class GameDatabaseApi : IGameDatabaseApi
             .Handle<FlurlHttpException>(r => r.StatusCode is (int)HttpStatusCode.Unauthorized)
             .RetryAsync(
                 1,
-                onRetry: async (ex, retryCount) =>
+                onRetry: async (_, _) =>
                 {
+                    Log.Information("IGDB authorization failed, refreshing new token");
                     token = await _twitchAccessTokenService.GetTwitchAccessTokenAsync(true);
                 }
             );
@@ -64,21 +67,3 @@ public class GameDatabaseApi : IGameDatabaseApi
         return response;
     }
 }
-
-/*
- *         var response = authPolicy.ExecuteAsync(
-            () =>
-                url.WithHeader("Client_Id", clientId)
-                    .WithOAuthBearerToken(token)
-                    .PostAsync()
-                    .ReceiveJson<T>()
-        );
- */
-/*
-         var token = await _twitchAccessTokenService.GetTwitchAccessTokenAsync(false);
-
-        var result = await url.WithHeader("Client_Id", clientId)
-            .WithOAuthBearerToken(token)
-            .PostAsync()
-            .ReceiveJson<T>();
-*/

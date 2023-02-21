@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
@@ -5,6 +6,7 @@ using GameWatch.Data;
 using GameWatch.Features.Auth;
 using GameWatch.Features.IGameDatabase;
 using GameWatch.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 using Quartz;
@@ -15,6 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 Log.Logger = new LoggerConfiguration().MinimumLevel
     .Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+    .MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Command", LogEventLevel.Warning)
     .WriteTo.Console()
     .CreateLogger();
 
@@ -46,37 +49,22 @@ builder.Services.AddMudServices();
 
 if (builder.Environment.IsDevelopment())
 {
-    builder.Services.AddDbContext<GameWatchContext>(
+    builder.Services.AddDbContextFactory<GameWatchDbContext>(
         options =>
             options
-                .UseNpgsql(builder.Configuration.GetConnectionString("BloggingContext"))
+                .UseNpgsql(builder.Configuration.GetConnectionString("GameWatchDbContext"))
                 .EnableSensitiveDataLogging()
     );
 }
 else
 {
-    builder.Services.AddDbContext<GameWatchContext>(
-        options => options.UseNpgsql(builder.Configuration.GetConnectionString("BloggingContext"))
+    builder.Services.AddDbContext<GameWatchDbContext>(
+        options =>
+            options.UseNpgsql(builder.Configuration.GetConnectionString("GameWatchDbContext"))
     );
 }
 
-builder.Services.AddQuartz(
-    q =>
-    {
-        q.UseMicrosoftDependencyInjectionJobFactory();
-        // Split up to seperate class
-        var fetchTwitchTokenJobKey = new JobKey("FetchTwitchTokenJobKey");
-        q.AddJob<FetchTwitchTokenJob>(ops => ops.WithIdentity(fetchTwitchTokenJobKey));
-        q.AddTrigger(
-            opts =>
-            {
-                opts.ForJob(fetchTwitchTokenJobKey)
-                    .WithIdentity("FetchTwitchTokenJobKey-trigger")
-                    .WithCronSchedule("0 2 * * 0"); // every sunday at 2AM
-            }
-        );
-    }
-);
+builder.Services.AddQuartz();
 builder.Services.AddQuartzServer(
     options =>
     {
@@ -84,6 +72,9 @@ builder.Services.AddQuartzServer(
         options.WaitForJobsToComplete = true;
     }
 );
+
+builder.Services.AddSingleton<ITwitchAccessTokenService, TwitchAccessTokenService>();
+builder.Services.AddSingleton<IGameDatabaseApi, GameDatabaseApi>();
 
 /*
 builder.Services.AddHttpClient(
@@ -111,10 +102,25 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+//app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
+if (builder.Environment.IsDevelopment())
+{
+    //await using var scope = app.Services
+    //    .GetRequiredService<IServiceScopeFactory>()
+    //    .CreateAsyncScope();
+    //var context = scope.ServiceProvider.GetRequiredService<DbContext<GameWatchContext>>();
+    await using var context = new GameWatchDbContext();
+    await context.Database.EnsureDeletedAsync();
+    await context.Database.EnsureCreatedAsync();
+}
+
 app.Run();
+
+
+// TOOD: https://learn.microsoft.com/en-us/aspnet/core/blazor/security/server/?view=aspnetcore-7.0&tabs=visual-studio#notification-about-authentication-state-changes
