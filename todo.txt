@@ -15,3 +15,8 @@
     
 - Internal ratings, with starts or 1-10
     -- Add trending
+	
+	
+IGameDatabase API
+	- Expand to separate library
+	- Use webhooks?

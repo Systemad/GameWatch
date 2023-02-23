@@ -1,8 +1,9 @@
 ﻿using System.Net;
 using Flurl;
 using Flurl.Http;
-using GameWatch.Common.Models;
+using GameWatch.Common.Game;
 using GameWatch.Features.Auth;
+using GameWatch.Utilities;
 using Microsoft.Extensions.Options;
 using Polly;
 using Serilog;
@@ -10,6 +11,7 @@ using Serilog;
 namespace GameWatch.Features.IGameDatabase;
 
 // TODO: Add caching!
+// Store data!
 public class GameDatabaseApi : IGameDatabaseApi
 {
     private readonly IOptions<TwitchOptions> _configuration;
@@ -33,10 +35,25 @@ public class GameDatabaseApi : IGameDatabaseApi
 
     public async Task<Game> GetGameAsync(string id)
     {
-        var url = "https://api.igdb.com/v4/games".SetQueryParams(
-            new { fields = "*", where_id = id }
-        );
+        var query = $"fields = *; where id = {id}";
+        var url = "https://api.igdb.com/v4/games".SetQueryParam(query);
         var result = await FetchApi<Game>(url);
+        return result;
+    }
+
+    // Future: rename GetGamesByReleaseDateAsync and include full parameters
+    // Split into separate library? Not priority
+    public async Task<Game[]> GetGamesByMonthAsync(int year, int month)
+    {
+        // *; where date > 1675256460 & date < 1677848460; sort date asc;
+        // Specify dates in unix epoch
+        var unixPre = new DateTime(year, month, 1).ConvertDateTimeToUnix();
+        var unixPast = new DateTime(year, month, 31).ConvertDateTimeToUnix();
+
+        var query = $"*; where date > {unixPre} & date < {unixPast}; sort date asc;";
+        var url = "https://api.igdb.com/v4/release_dates".SetQueryParam(query);
+
+        var result = await FetchApi<Game[]>(url);
         return result;
     }
 

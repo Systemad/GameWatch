@@ -44,4 +44,8 @@
       <Folder Include="Features\Bots\Telegram" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Features\Game\GameCard.razor" />
+    </ItemGroup>
+
 </Project>

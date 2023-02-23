@@ -1,8 +1,20 @@
 ﻿@page "/"
+@using System.Globalization
 @layout PageWrapper
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Home</PageTitle>
 
-<h1>Hello!</h1>
+<MudText Typo="Typo.h4" Align="Align.Center">Games released this month</MudText>
+<MudText Typo="Typo.h4" Align="Align.Center">@CurrentDate.ToString("MMMM", CultureInfo.InvariantCulture)</MudText>
 
-Welcome to your s app.
+<MudGrid Class="mt-8" Justify="Justify.Center">
+        <MudItem xs="4">
+            <GameCard/>
+        </MudItem>
+        <MudItem xs="4">
+            <GameCard/>
+        </MudItem>
+        <MudItem xs="4">
+            <GameCard/>
+        </MudItem>
+</MudGrid>

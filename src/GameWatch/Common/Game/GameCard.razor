@@ -1,0 +1,16 @@
+﻿<MudCard Class="rounded-lg" Elevation="4">
+    <MudCardMedia Image="images/door.jpg" Height="150" />
+    <MudCardContent>
+        <MudText Typo="Typo.h5">Game title - Release date</MudText>
+        @for (var i = 0; i < 3; i++)
+        {
+            <MudChip Variant="Variant.Outlined" Color="Color.Primary">category</MudChip>
+        }
+        <MudText Typo="Typo.body2">Game description</MudText>
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton Variant="Variant.Text" Class="rounded-xl" DisableElevation="true">Add to wishlist</MudButton>
+        <MudSpacer/>
+        <MudButton Variant="Variant.Filled" Class="rounded-xl" DisableElevation="true" Color="Color.Secondary">Show more</MudButton>
+    </MudCardActions>
+</MudCard>
