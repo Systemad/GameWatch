@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
@@ -6,7 +5,6 @@ using GameWatch.Data;
 using GameWatch.Features.Auth;
 using GameWatch.Features.IGameDatabase;
 using GameWatch.Persistence;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 using Quartz;
@@ -23,6 +21,7 @@ Log.Logger = new LoggerConfiguration().MinimumLevel
 
 builder.Host.UseSerilog();
 
+builder.Services.AddMemoryCache();
 builder.Services
     .AddOptions<TwitchOptions>()
     .Bind(builder.Configuration.GetSection(TwitchOptions.Twitch));
@@ -45,6 +44,8 @@ builder.Services.AddAuthorization(
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor().AddMicrosoftIdentityConsentHandler();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddSingleton<IGameDatabaseApi, GameDatabaseApi>();
+
 builder.Services.AddMudServices();
 
 if (builder.Environment.IsDevelopment())
