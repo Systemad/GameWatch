@@ -10,17 +10,6 @@ using Serilog;
 
 namespace GameWatch.Features.IGameDatabase;
 
-// https://learn.microsoft.com/en-us/dotnet/core/extensions/caching
-/*
- * TODO:
- * IDictiornary<body, cacheKey> Cachekeys:
- * Use body and cacheKey!
- * https://stackoverflow.com/questions/2190890/how-can-i-generate-a-guid-for-a-string!
- * Store object as cache!
- * Use entityframework to store??
- */
-// TODO: Add caching!
-// Store data!
 public class GameDatabaseApi : IGameDatabaseApi
 {
     private readonly IOptions<TwitchOptions> _configuration;

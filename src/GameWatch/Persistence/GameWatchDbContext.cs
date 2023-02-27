@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GameWatch.Features.IGameDatabase;
+using Microsoft.EntityFrameworkCore;
 
 namespace GameWatch.Persistence;
 
@@ -9,6 +10,7 @@ public class GameWatchDbContext : DbContext
     //public GameWatchContext(DbContextOptions<GameWatchContext> options) : base(options) { }
 
     public DbSet<GameSchedule> GameSchedules { get; set; }
+    public DbSet<Game> Games { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
         optionsBuilder.UseNpgsql(

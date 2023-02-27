@@ -70,7 +70,7 @@ public class Game
     public long[] PlayerPerspectives { get; set; }
 
     [JsonPropertyName("release_dates")]
-    public long[] ReleaseDateReleaseDates { get; set; }
+    public long[] ReleaseDates { get; set; }
 
     [JsonPropertyName("screenshots")]
     public long[] Screenshots { get; set; }

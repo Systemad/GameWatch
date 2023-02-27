@@ -7,14 +7,18 @@
 <MudText Typo="Typo.h4" Align="Align.Center">Games released this month</MudText>
 <MudText Typo="Typo.h4" Align="Align.Center">@_selectedDate.ToString("MMMM", CultureInfo.InvariantCulture)</MudText>
 
-<MudGrid Class="mt-8" Justify="Justify.Center">
-        <MudItem xs="4">
-            <GameCard/>
-        </MudItem>
-        <MudItem xs="4">
-            <GameCard/>
-        </MudItem>
-        <MudItem xs="4">
-            <GameCard/>
-        </MudItem>
-</MudGrid>
+@if (Games is not null)
+{
+    <MudGrid Class="mt-8" Justify="Justify.Center">
+        @foreach(var game in Games)
+        {
+            <MudItem xs="4">
+                <GameCard Game="@game"/>
+            </MudItem>
+        }
+    </MudGrid>   
+}
+else
+{
+    <p>loading</p>
+}

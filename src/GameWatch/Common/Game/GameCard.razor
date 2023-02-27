@@ -1,4 +1,5 @@
-﻿<MudCard Class="rounded-lg" Elevation="4">
+﻿@using GameWatch.Features.IGameDatabase
+<MudCard Class="rounded-lg" Elevation="4">
     <MudCardMedia Image="images/door.jpg" Height="150" />
     <MudCardContent>
         <MudText Typo="Typo.h5">Game title - Release date</MudText>
@@ -14,3 +15,9 @@
         <MudButton Variant="Variant.Filled" Class="rounded-xl" DisableElevation="true" Color="Color.Secondary">Show more</MudButton>
     </MudCardActions>
 </MudCard>
+
+@code {
+
+    [Parameter] public Game Game { get; set; }
+
+}

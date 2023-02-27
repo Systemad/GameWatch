@@ -31,29 +31,36 @@ public class TwitchAccessTokenService : ITwitchAccessTokenService
 
     public async Task<string> GetTwitchAccessTokenAsync(bool unauthorized)
     {
-        var clientId = _config.Value.ClientId;
-        var clientSecret = _config.Value.ClientSecret;
-        TwitchTokenResponse token = new();
-
         if (unauthorized)
         {
-            token = await "https://id.twitch.tv/oauth2/token"
-                .SetQueryParam("client_id", clientId)
-                .SetQueryParam("client_secret", clientSecret)
-                //.AllowAnyHttpStatus()
-                .PostAsync()
-                .ReceiveJson<TwitchTokenResponse>();
-
-            var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(
-                TimeSpan.FromSeconds(token.ExpiresIn)
-            );
-            _memoryCache.Set("twitchToken", token, cacheEntryOptions);
-            return token.AccessToken;
+            var token = await FetchAndCacheTokenAsync();
+            return token;
         }
 
-        if (!_memoryCache.TryGetValue("twitchToken", out TwitchTokenResponse hey))
-            token = hey;
+        if (!_memoryCache.TryGetValue("twitchToken", out string cachedToken))
+        {
+            cachedToken = await FetchAndCacheTokenAsync();
+        }
+        return cachedToken;
+    }
 
-        return token.AccessToken;
+    private async Task<string> FetchAndCacheTokenAsync()
+    {
+        var clientId = _config.Value.ClientId;
+        var clientSecret = _config.Value.ClientSecret;
+
+        var fetchedToken = await "https://id.twitch.tv/oauth2/token"
+            .SetQueryParam("client_id", clientId)
+            .SetQueryParam("client_secret", clientSecret)
+            .SetQueryParam("grant_type", "client_credentials")
+            //.AllowAnyHttpStatus()
+            .PostAsync()
+            .ReceiveJson<TwitchTokenResponse>();
+        var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(
+            TimeSpan.FromSeconds(fetchedToken.ExpiresIn)
+        );
+        _memoryCache.Set("twitchToken", fetchedToken.AccessToken, cacheEntryOptions);
+
+        return fetchedToken.AccessToken;
     }
 }

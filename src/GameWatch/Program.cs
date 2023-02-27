@@ -65,7 +65,26 @@ else
     );
 }
 
-builder.Services.AddQuartz();
+builder.Services.AddSingleton<ITwitchAccessTokenService, TwitchAccessTokenService>();
+builder.Services.AddSingleton<IGameDatabaseApi, GameDatabaseApi>();
+
+builder.Services.AddQuartz(
+    q =>
+    {
+        q.UseMicrosoftDependencyInjectionScopedJobFactory();
+        /*
+        var jobKey = new JobKey("FetchGamesJob");
+        q.AddJob<FetchGamesJob>(opts => opts.WithIdentity(jobKey));
+        q.AddTrigger(
+            opts =>
+                opts.ForJob(jobKey)
+                    .WithIdentity("FetchGamesJob-trigger")
+                    .StartNow()
+                    .WithSimpleSchedule(x => x.WithIntervalInHours(6).RepeatForever())
+        );
+        */
+    }
+);
 builder.Services.AddQuartzServer(
     options =>
     {
@@ -73,9 +92,6 @@ builder.Services.AddQuartzServer(
         options.WaitForJobsToComplete = true;
     }
 );
-
-builder.Services.AddSingleton<ITwitchAccessTokenService, TwitchAccessTokenService>();
-builder.Services.AddSingleton<IGameDatabaseApi, GameDatabaseApi>();
 
 /*
 builder.Services.AddHttpClient(
@@ -121,7 +137,19 @@ if (builder.Environment.IsDevelopment())
     await context.Database.EnsureCreatedAsync();
 }
 
+var schedulerFactory = app.Services.GetRequiredService<ISchedulerFactory>();
+var scheduler = await schedulerFactory.GetScheduler();
+
+var job = JobBuilder.Create<FetchGamesJob>().WithIdentity("FetchGamesJob", "igdb").Build();
+
+// Trigger the job to run now, and then every 40 seconds
+var trigger = TriggerBuilder
+    .Create()
+    .WithIdentity("FetchGamesJob-trigger", "igdb")
+    .StartNow()
+    .WithSimpleSchedule(x => x.WithIntervalInHours(6).RepeatForever())
+    .Build();
+
+await scheduler.ScheduleJob(job, trigger);
+
 app.Run();
-
-
-// TOOD: https://learn.microsoft.com/en-us/aspnet/core/blazor/security/server/?view=aspnetcore-7.0&tabs=visual-studio#notification-about-authentication-state-changes
