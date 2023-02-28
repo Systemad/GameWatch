@@ -1,12 +1,11 @@
 ﻿using System.Text.Json.Serialization;
 using Flurl;
 using Flurl.Http;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 
 namespace GameWatch.Features.Auth;
 
-public class TwitchTokenResponse
+public class TwitchBaseTokenResponse
 {
     [JsonPropertyName("access_token")]
     public string AccessToken { get; set; }
@@ -18,49 +17,80 @@ public class TwitchTokenResponse
     public string TokenType { get; set; }
 }
 
+public class TwitchRefreshTokenResponse
+{
+    [JsonPropertyName("access_token")]
+    public string AccessToken { get; set; }
+
+    [JsonPropertyName("refresh_token")]
+    public string RefreshToken { get; set; }
+
+    [JsonPropertyName("expires_in")]
+    public int ExpiresIn { get; set; }
+
+    [JsonPropertyName("scope")]
+    public string Scope { get; set; }
+
+    [JsonPropertyName("token_type")]
+    public int TokenType { get; set; }
+}
+
 public class TwitchAccessTokenService : ITwitchAccessTokenService
 {
-    private readonly IMemoryCache _memoryCache;
     private readonly IOptions<TwitchOptions> _config;
+    private string AccessToken = null!;
 
-    public TwitchAccessTokenService(IMemoryCache memoryCache, IOptions<TwitchOptions> config)
+    public TwitchAccessTokenService(IOptions<TwitchOptions> config)
     {
-        _memoryCache = memoryCache;
         _config = config;
     }
 
     public async Task<string> GetTwitchAccessTokenAsync(bool unauthorized)
     {
-        if (unauthorized)
-        {
-            var token = await FetchAndCacheTokenAsync();
-            return token;
-        }
-
-        if (!_memoryCache.TryGetValue("twitchToken", out string cachedToken))
-        {
-            cachedToken = await FetchAndCacheTokenAsync();
-        }
-        return cachedToken;
-    }
-
-    private async Task<string> FetchAndCacheTokenAsync()
-    {
         var clientId = _config.Value.ClientId;
         var clientSecret = _config.Value.ClientSecret;
 
+        if (string.IsNullOrWhiteSpace(clientId))
+            throw new Exception("Twitch:ClientId is is empty!");
+
+        if (string.IsNullOrWhiteSpace(clientSecret))
+            throw new Exception("Twitch:ClientSecret is is empty!");
+
+        if (string.IsNullOrWhiteSpace(AccessToken))
+            await FetchAndSetTwitchAccessTokenAsync(clientId, clientSecret);
+
+        if (unauthorized && !string.IsNullOrWhiteSpace(AccessToken))
+            await RefreshAndSetTwitchAccessTokenAsync(clientId, clientSecret);
+
+        return AccessToken;
+    }
+
+    private async Task RefreshAndSetTwitchAccessTokenAsync(string clientId, string clientSecret)
+    {
+        var fetchedToken = await "https://id.twitch.tv/oauth2/token"
+            .SetQueryParam("client_id", clientId)
+            .SetQueryParam("client_secret", clientSecret)
+            .SetQueryParam("grant_type", "refresh_token")
+            .SetQueryParam("refresh_token", AccessToken)
+            //.AllowAnyHttpStatus()
+            .PostAsync()
+            .ReceiveJson<TwitchRefreshTokenResponse>();
+
+        if (fetchedToken is not null && !string.IsNullOrWhiteSpace(fetchedToken.AccessToken))
+            AccessToken = fetchedToken.AccessToken;
+    }
+
+    private async Task FetchAndSetTwitchAccessTokenAsync(string clientId, string clientSecret)
+    {
         var fetchedToken = await "https://id.twitch.tv/oauth2/token"
             .SetQueryParam("client_id", clientId)
             .SetQueryParam("client_secret", clientSecret)
             .SetQueryParam("grant_type", "client_credentials")
             //.AllowAnyHttpStatus()
             .PostAsync()
-            .ReceiveJson<TwitchTokenResponse>();
-        var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(
-            TimeSpan.FromSeconds(fetchedToken.ExpiresIn)
-        );
-        _memoryCache.Set("twitchToken", fetchedToken.AccessToken, cacheEntryOptions);
+            .ReceiveJson<TwitchBaseTokenResponse>();
 
-        return fetchedToken.AccessToken;
+        if (fetchedToken is not null && !string.IsNullOrWhiteSpace(fetchedToken.AccessToken))
+            AccessToken = fetchedToken.AccessToken;
     }
 }
