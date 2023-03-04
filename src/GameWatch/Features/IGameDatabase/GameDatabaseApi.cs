@@ -2,6 +2,7 @@
 using Flurl;
 using Flurl.Http;
 using GameWatch.Features.Auth;
+using GameWatch.Features.IGameDatabase.Models;
 using GameWatch.Utilities;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
@@ -42,13 +43,11 @@ public class GameDatabaseApi : IGameDatabaseApi
     public async Task<Game> GetGameAsync(string id)
     {
         var body = $"fields *; where id = {id}";
-        var url = "https://api.igdb.com/v4/games"; //.SetQueryParam("fields", query);
+        var url = "https://api.igdb.com/v4/games";
         var result = await FetchApi<Game>(url, body);
         return result;
     }
 
-    // Future: rename GetGamesByReleaseDateAsync and include full parameters
-    // Split into separate library? Not priority
     public async Task<Game[]> GetGamesByMonthAsync(int year, int month)
     {
         // *; where date > 1675256460 & date < 1677848460; sort date asc;

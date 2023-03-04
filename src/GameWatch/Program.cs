@@ -5,7 +5,6 @@ using GameWatch.Data;
 using GameWatch.Features.Auth;
 using GameWatch.Features.IGameDatabase;
 using GameWatch.Persistence;
-using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 using Quartz;
 using Serilog;
@@ -13,6 +12,7 @@ using Serilog.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Serilog
 Log.Logger = new LoggerConfiguration().MinimumLevel
     .Override("Microsoft.AspNetCore", LogEventLevel.Warning)
     .MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Command", LogEventLevel.Warning)
@@ -22,11 +22,13 @@ Log.Logger = new LoggerConfiguration().MinimumLevel
 builder.Host.UseSerilog();
 
 builder.Services.AddMemoryCache();
+
+// Builds options with Twitch keys, which will be used from IOption<TwitchOpions>
 builder.Services
     .AddOptions<TwitchOptions>()
     .Bind(builder.Configuration.GetSection(TwitchOptions.Twitch));
 
-// Add services to the container.
+// Add Azure AD B2C services to the container
 builder.Services
     .AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAdB2C"));
@@ -44,45 +46,25 @@ builder.Services.AddAuthorization(
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor().AddMicrosoftIdentityConsentHandler();
 builder.Services.AddSingleton<WeatherForecastService>();
-builder.Services.AddSingleton<IGameDatabaseApi, GameDatabaseApi>();
 
 builder.Services.AddMudServices();
 
-if (builder.Environment.IsDevelopment())
-{
-    builder.Services.AddDbContextFactory<GameWatchDbContext>(
-        options =>
-            options
-                .UseNpgsql(builder.Configuration.GetConnectionString("GameWatchDbContext"))
-                .EnableSensitiveDataLogging()
-    );
-}
-else
-{
-    builder.Services.AddDbContext<GameWatchDbContext>(
-        options =>
-            options.UseNpgsql(builder.Configuration.GetConnectionString("GameWatchDbContext"))
-    );
-}
+// User context is used for users information only
+builder.Services.AddDbContextFactory<UserContext>();
 
+// Game context is used for storing all game information database
+builder.Services.AddDbContextFactory<GameContext>();
+
+// Twitch token service, which generates and/or refreshes Twitch access token
 builder.Services.AddSingleton<ITwitchAccessTokenService, TwitchAccessTokenService>();
+
+// IGDB Database service
 builder.Services.AddSingleton<IGameDatabaseApi, GameDatabaseApi>();
 
 builder.Services.AddQuartz(
     q =>
     {
         q.UseMicrosoftDependencyInjectionScopedJobFactory();
-        /*
-        var jobKey = new JobKey("FetchGamesJob");
-        q.AddJob<FetchGamesJob>(opts => opts.WithIdentity(jobKey));
-        q.AddTrigger(
-            opts =>
-                opts.ForJob(jobKey)
-                    .WithIdentity("FetchGamesJob-trigger")
-                    .StartNow()
-                    .WithSimpleSchedule(x => x.WithIntervalInHours(6).RepeatForever())
-        );
-        */
     }
 );
 builder.Services.AddQuartzServer(
@@ -128,26 +110,24 @@ app.MapFallbackToPage("/_Host");
 
 if (builder.Environment.IsDevelopment())
 {
-    //await using var scope = app.Services
-    //    .GetRequiredService<IServiceScopeFactory>()
-    //    .CreateAsyncScope();
     //var context = scope.ServiceProvider.GetRequiredService<DbContext<GameWatchContext>>();
-    await using var context = new GameWatchDbContext();
-    await context.Database.EnsureDeletedAsync();
-    await context.Database.EnsureCreatedAsync();
+    //await using var context = new GameWatchDbContext();
+    //await context.Database.EnsureDeletedAsync();
+    //await context.Database.EnsureCreatedAsync();
 }
 
 var schedulerFactory = app.Services.GetRequiredService<ISchedulerFactory>();
 var scheduler = await schedulerFactory.GetScheduler();
 
+// This job triggers every 24 hours for 2 minutes to fetch all games from IGDB and store into a database
+
 var job = JobBuilder.Create<FetchGamesJob>().WithIdentity("FetchGamesJob", "igdb").Build();
 
-// Trigger the job to run now, and then every 40 seconds
 var trigger = TriggerBuilder
     .Create()
     .WithIdentity("FetchGamesJob-trigger", "igdb")
     .StartNow()
-    .WithSimpleSchedule(x => x.WithIntervalInHours(6).RepeatForever())
+    .WithSimpleSchedule(x => x.WithIntervalInHours(24).RepeatForever())
     .Build();
 
 await scheduler.ScheduleJob(job, trigger);

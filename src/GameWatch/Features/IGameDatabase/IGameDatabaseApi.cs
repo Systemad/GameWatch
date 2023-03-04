@@ -1,4 +1,4 @@
-﻿using GameWatch.Common.Game;
+﻿using GameWatch.Features.IGameDatabase.Models;
 
 namespace GameWatch.Features.IGameDatabase;
 

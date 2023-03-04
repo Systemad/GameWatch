@@ -1,5 +1,5 @@
-﻿using GameWatch.Common.Game;
-using GameWatch.Features.IGameDatabase;
+﻿using GameWatch.Features.IGameDatabase;
+using GameWatch.Features.IGameDatabase.Models;
 using GameWatch.Persistence;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +16,7 @@ public partial class Index
     private IGameDatabaseApi _gameDatabaseApi { get; set; }
 
     [Inject]
-    private IDbContextFactory<GameWatchDbContext> _context { get; set; }
+    private IDbContextFactory<UserContext> _context { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -30,6 +30,6 @@ public partial class Index
         Games = new List<Game>();
         var games = await _gameDatabaseApi.GetGamesByMonthAsync(year, month);
         var ids = games.Select(x => x.Id);
-        Games = context.Games.Where(x => ids.Contains(x.Id)).ToList();
+        //Games = context.Games.Where(x => ids.Contains(x.Id)).ToList();
     }
 }

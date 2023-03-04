@@ -11,6 +11,7 @@
     <ItemGroup>
         <PackageReference Include="Flurl" Version="3.0.7" />
         <PackageReference Include="Flurl.Http" Version="3.2.4" />
+        <PackageReference Include="linq2db" Version="5.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.3" NoWarn="NU1605" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="7.0.3" NoWarn="NU1605" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3">
@@ -47,5 +48,4 @@
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Features\Game\GameCard.razor" />
     </ItemGroup>
-
 </Project>

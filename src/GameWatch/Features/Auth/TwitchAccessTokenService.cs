@@ -38,7 +38,7 @@ public class TwitchRefreshTokenResponse
 public class TwitchAccessTokenService : ITwitchAccessTokenService
 {
     private readonly IOptions<TwitchOptions> _config;
-    private string AccessToken = null!;
+    private string AccessToken = "";
 
     public TwitchAccessTokenService(IOptions<TwitchOptions> config)
     {
