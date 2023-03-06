@@ -43,6 +43,7 @@
     <ItemGroup>
       <Folder Include="Features\Bots\Discord" />
       <Folder Include="Features\Bots\Telegram" />
+      <Folder Include="Features\News" />
     </ItemGroup>
 
     <ItemGroup>

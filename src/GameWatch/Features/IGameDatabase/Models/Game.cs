@@ -2,445 +2,79 @@
 
 namespace GameWatch.Features.IGameDatabase.Models;
 
-// FIX!
-/* AgeRatings
- * ****imageId*** under cover, artworks, etc etc
- * firstreleasedate
- * gameengines
- * gamemodes
- * involvedcompanies
- * playerperspectives
- * releasedates
- * simialrgames
- */
-/*
-public class Game
-{
-    [JsonPropertyName("id")]
-    public long Id { get; set; }
-
-    [JsonPropertyName("age_ratings")]
-    public AgeRating[] AgeRatings { get; set; }
-
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    [JsonPropertyName("artworks")]
-    public Artwork[] Artworks { get; set; }
-
-    [JsonPropertyName("category")]
-    public GameCategory Category { get; set; }
-
-    [JsonPropertyName("cover")]
-    public Cover Cover { get; set; }
-
-    [JsonPropertyName("first_release_date")]
-    public long FirstReleaseDate { get; set; }
-
-    [JsonPropertyName("game_engines")]
-    public GameEngine[] GameEngines { get; set; }
-
-    [JsonPropertyName("game_modes")]
-    public GameMode[] GameModes { get; set; }
-
-    [JsonPropertyName("genres")]
-    public Genre[] Genres { get; set; }
-
-    [JsonPropertyName("involved_companies")]
-    public InvolvedCompany[] InvolvedCompanies { get; set; }
-
-    [JsonPropertyName("keywords")]
-    public Keyword[] Keywords { get; set; }
-
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-
-    [JsonPropertyName("platforms")]
-    public Platform[] Platforms { get; set; }
-
-    [JsonPropertyName("player_perspectives")]
-    public PlayerPerspective[] PlayerPerspectives { get; set; }
-
-    [JsonPropertyName("rating")]
-    public double Rating { get; set; }
-
-    [JsonPropertyName("rating_count")]
-    public long RatingCount { get; set; }
-
-    [JsonPropertyName("release_dates")]
-    public ReleaseDate[] ReleaseDates { get; set; }
-
-    [JsonPropertyName("screenshots")]
-    public Screenshot[] Screenshots { get; set; }
-
-    [JsonPropertyName("similar_games")]
-    public SimilarGame[] SimilarGames { get; set; }
-
-    [JsonPropertyName("slug")]
-    public string Slug { get; set; }
-
-    [JsonPropertyName("status")]
-    public GameStatus Status { get; set; }
-
-    [JsonPropertyName("storyline")]
-    public string Storyline { get; set; }
-
-    [JsonPropertyName("summary")]
-    public string Summary { get; set; }
-
-    [JsonPropertyName("themes")]
-    public Theme[] Themes { get; set; }
-
-    [JsonPropertyName("total_rating")]
-    public double TotalRating { get; set; }
-
-    [JsonPropertyName("total_rating_count")]
-    public long TotalRatingCount { get; set; }
-
-    [JsonPropertyName("url")]
-    public string Url { get; set; }
-
-    [JsonPropertyName("websites")]
-    public Website[] Websites { get; set; }
-}
-
-public class PlayerPerspective
-{
-    [JsonPropertyName("id")]
-    public long Id { get; set; }
-
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-}
-
-public class Website
-{
-    [JsonPropertyName("id")]
-    public long Id { get; set; }
-
-    [JsonPropertyName("category")]
-    public long Category { get; set; }
-
-    [JsonPropertyName("game")]
-    public long Game { get; set; }
-
-    [JsonPropertyName("trusted")]
-    public bool Trusted { get; set; }
-
-    [JsonPropertyName("url")]
-    public Uri Url { get; set; }
-
-    [JsonPropertyName("checksum")]
-    public Guid Checksum { get; set; }
-}
-
-public class AgeRating
-{
-    [JsonPropertyName("id")]
-    public long Id { get; set; }
-
-    [JsonPropertyName("category")]
-    public AgeRatingCategory Category { get; set; }
-
-    [JsonPropertyName("rating")]
-    public AgeRatingTitle Rating { get; set; }
-}
-
-public class AlternativeName
-{
-    [JsonPropertyName("id")]
-    public long Id { get; set; }
-
-    [JsonPropertyName("comment")]
-    public string Comment { get; set; }
-
-    [JsonPropertyName("game")]
-    public long Game { get; set; }
-
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-
-    [JsonPropertyName("checksum")]
-    public Guid Checksum { get; set; }
-}
-
-public class Genre
-{
-    [JsonPropertyName("id")]
-    public long Id { get; set; }
-
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-}
-
-public class Artwork
-{
-    [JsonPropertyName("id")]
-    public long Id { get; set; }
-
-    [JsonPropertyName("image_id")]
-    public string ImageId { get; set; }
-}
-
-public class Cover
-{
-    [JsonPropertyName("id")]
-    public long Id { get; set; }
-
-    [JsonPropertyName("image_id")]
-    public string ImageId { get; set; }
-}
-
-public class Keyword
-{
-    [JsonPropertyName("id")]
-    public long Id { get; set; }
-
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-}
-
-public class ReleaseDate
-{
-    [JsonPropertyName("id")]
-    public long Id { get; set; }
-
-    [JsonPropertyName("category")]
-    public long Category { get; set; }
-
-    [JsonPropertyName("created_at")]
-    public long CreatedAt { get; set; }
-
-    [JsonPropertyName("date")]
-    public long Date { get; set; }
-
-    [JsonPropertyName("game")]
-    public long Game { get; set; }
-
-    [JsonPropertyName("human")]
-    public string Human { get; set; }
-
-    [JsonPropertyName("m")]
-    public long M { get; set; }
-
-    [JsonPropertyName("platform")]
-    public Platform Platform { get; set; }
-
-    [JsonPropertyName("region")]
-    public long Region { get; set; }
-
-    [JsonPropertyName("updated_at")]
-    public long UpdatedAt { get; set; }
-
-    [JsonPropertyName("y")]
-    public long Y { get; set; }
-
-    [JsonPropertyName("checksum")]
-    public Guid Checksum { get; set; }
-}
-
-public class Platform
-{
-    [JsonPropertyName("id")]
-    public long Id { get; set; }
-
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-}
-
-public class Video
-{
-    [JsonPropertyName("id")]
-    public long Id { get; set; }
-
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    [JsonPropertyName("comment")]
-    public string Comment { get; set; }
-
-    [JsonPropertyName("game")]
-    public long Game { get; set; }
-
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-
-    [JsonPropertyName("checksum")]
-    public Guid Checksum { get; set; }
-
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    [JsonPropertyName("video_id")]
-    public string VideoId { get; set; }
-}
-
-
-public class GameEngine
-{
-    [JsonPropertyName("id")]
-    public long Id { get; set; }
-
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-}
-
-public class InvolvedCompany
-{
-    [JsonPropertyName("id")]
-    public long Id { get; set; }
-
-    [JsonPropertyName("company")]
-    public Company Company { get; set; }
-
-    [JsonPropertyName("created_at")]
-    public long CreatedAt { get; set; }
-
-    [JsonPropertyName("developer")]
-    public bool Developer { get; set; }
-
-    [JsonPropertyName("game")]
-    public long Game { get; set; }
-
-    [JsonPropertyName("porting")]
-    public bool Porting { get; set; }
-
-    [JsonPropertyName("publisher")]
-    public bool Publisher { get; set; }
-
-    [JsonPropertyName("supporting")]
-    public bool Supporting { get; set; }
-
-    [JsonPropertyName("updated_at")]
-    public long UpdatedAt { get; set; }
-
-    [JsonPropertyName("checksum")]
-    public Guid Checksum { get; set; }
-}
-
-public class Company
-{
-    [JsonPropertyName("id")]
-    public long Id { get; set; }
-
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-}
-
-public class Theme
-{
-    [JsonPropertyName("id")]
-    public long Id { get; set; }
-
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-}
-
-public class Screenshot
-{
-    [JsonPropertyName("id")]
-    public long Id { get; set; }
-
-    [JsonPropertyName("image_id")]
-    public string ImageId { get; set; }
-}
-
-public class SimilarGame
-{
-    [JsonPropertyName("id")]
-    public long Id { get; set; }
-
-    [JsonPropertyName("cover")]
-    public Cover Cover { get; set; }
-
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-}
-
-public class GameMode
-{
-    [JsonPropertyName("id")]
-    public long Id { get; set; }
-
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-}
-*/
-
 public partial class Game
 {
     [JsonPropertyName("id")]
     public long Id { get; set; }
 
-    // TODO: NULL
     [JsonPropertyName("age_ratings")]
-    public AgeRating[] AgeRatings { get; set; }
+    public List<AgeRating>? AgeRatings { get; set; }
 
     [JsonPropertyName("artworks")]
-    public Cover[] Artworks { get; set; }
+    public List<Cover>? Artworks { get; set; }
 
     [JsonPropertyName("category")]
-    public GameCategory Category { get; set; }
+    public GameCategory? Category { get; set; }
 
     [JsonPropertyName("cover")]
-    public Cover Cover { get; set; }
+    public Cover? Cover { get; set; }
 
-    // TODO: Fix 0
     [JsonPropertyName("first_release_date")]
     public long FirstReleaseDate { get; set; }
 
-    // TODO: Fix null
     [JsonPropertyName("game_engines")]
-    public GameEngine[] GameEngines { get; set; }
+    public List<GameEngine>? GameEngines { get; set; }
 
-    // TODO: Fix null
     [JsonPropertyName("game_modes")]
-    public GameEngine[] GameModes { get; set; }
+    public List<GameMode>? GameModes { get; set; }
 
     [JsonPropertyName("genres")]
-    public GameEngine[] Genres { get; set; }
+    public List<Genre>? Genres { get; set; }
 
-    // TODO: Fix null
     [JsonPropertyName("involved_companies")]
-    public InvolvedCompany[] InvolvedCompanies { get; set; }
+    public List<InvolvedCompany>? InvolvedCompanies { get; set; }
 
     [JsonPropertyName("keywords")]
-    public GameEngine[] Keywords { get; set; }
+    public List<Keyword>? Keywords { get; set; }
 
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     [JsonPropertyName("platforms")]
-    public GameEngine[] Platforms { get; set; }
+    public List<Platform>? Platforms { get; set; }
 
-    // TODO: Fix null
     [JsonPropertyName("player_perspectives")]
-    public GameEngine[] PlayerPerspectives { get; set; }
+    public List<PlayerPerspective>? PlayerPerspectives { get; set; }
 
     [JsonPropertyName("rating")]
     public double Rating { get; set; }
 
-    // TODO: Fix null
     [JsonPropertyName("release_dates")]
-    public ReleaseDate[] ReleaseDates { get; set; }
+    public List<ReleaseDate>? ReleaseDates { get; set; }
 
     [JsonPropertyName("screenshots")]
-    public Cover[] Screenshots { get; set; }
+    public List<Screenshot>? Screenshots { get; set; }
 
     [JsonPropertyName("similar_games")]
-    public SimilarGame[] SimilarGames { get; set; }
+    public List<SimilarGame>? SimilarGames { get; set; }
 
     [JsonPropertyName("slug")]
-    public string Slug { get; set; }
+    public string? Slug { get; set; }
 
     [JsonPropertyName("storyline")]
-    public string Storyline { get; set; }
+    public string? Storyline { get; set; }
 
     [JsonPropertyName("summary")]
-    public string Summary { get; set; }
+    public string? Summary { get; set; }
 
     [JsonPropertyName("themes")]
-    public GameEngine[] Themes { get; set; }
+    public List<Theme>? Themes { get; set; }
 
     [JsonPropertyName("url")]
-    public string Url { get; set; }
+    public string? Url { get; set; }
 
     [JsonPropertyName("websites")]
-    public Website[] Websites { get; set; }
+    public List<Website>? Websites { get; set; }
 }
 
 public partial class AgeRating
@@ -460,9 +94,35 @@ public partial class Cover
     [JsonPropertyName("id")]
     public long Id { get; set; }
 
-    // TODO: Fix null
     [JsonPropertyName("image_id")]
-    public string ImageId { get; set; }
+    public string? ImageId { get; set; }
+}
+
+public partial class Artwork
+{
+    [JsonPropertyName("id")]
+    public long Id { get; set; }
+
+    [JsonPropertyName("image_id")]
+    public string? ImageId { get; set; }
+}
+
+public partial class Screenshot
+{
+    [JsonPropertyName("id")]
+    public long Id { get; set; }
+
+    [JsonPropertyName("image_id")]
+    public string? ImageId { get; set; }
+}
+
+public partial class PlayerPerspective
+{
+    [JsonPropertyName("id")]
+    public long Id { get; set; }
+
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
 }
 
 public partial class GameEngine
@@ -471,7 +131,61 @@ public partial class GameEngine
     public long Id { get; set; }
 
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
+}
+
+public partial class Company
+{
+    [JsonPropertyName("id")]
+    public long Id { get; set; }
+
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
+}
+
+public partial class Theme
+{
+    [JsonPropertyName("id")]
+    public long Id { get; set; }
+
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
+}
+
+public partial class Platform
+{
+    [JsonPropertyName("id")]
+    public long Id { get; set; }
+
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
+}
+
+public partial class Keyword
+{
+    [JsonPropertyName("id")]
+    public long Id { get; set; }
+
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
+}
+
+public partial class Genre
+{
+    [JsonPropertyName("id")]
+    public long Id { get; set; }
+
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
+}
+
+public partial class GameMode
+{
+    [JsonPropertyName("id")]
+    public long Id { get; set; }
+
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
 }
 
 public partial class InvolvedCompany
@@ -480,7 +194,7 @@ public partial class InvolvedCompany
     public long Id { get; set; }
 
     [JsonPropertyName("company")]
-    public GameEngine Company { get; set; }
+    public Company? Company { get; set; }
 
     [JsonPropertyName("created_at")]
     public long CreatedAt { get; set; }
@@ -525,13 +239,13 @@ public partial class ReleaseDate
     public long Game { get; set; }
 
     [JsonPropertyName("human")]
-    public string Human { get; set; }
+    public string? Human { get; set; }
 
     [JsonPropertyName("m")]
     public long M { get; set; }
 
     [JsonPropertyName("platform")]
-    public GameEngine Platform { get; set; }
+    public Platform? Platform { get; set; }
 
     [JsonPropertyName("region")]
     public ReleaseDateRegion Region { get; set; }
@@ -552,10 +266,10 @@ public partial class SimilarGame
     public long Id { get; set; }
 
     [JsonPropertyName("cover")]
-    public Cover Cover { get; set; }
+    public Cover? Cover { get; set; }
 
     [JsonPropertyName("name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 }
 
 public partial class Website
@@ -708,4 +422,10 @@ public enum WebsiteCategory
     EpicGames = 16,
     GOG = 17,
     Discord = 18
+}
+
+public class CountResponse
+{
+    [JsonPropertyName("count")]
+    public long Count { get; set; }
 }

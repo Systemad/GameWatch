@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GameWatch.Features.User.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GameWatch.Persistence;
 
@@ -6,13 +7,14 @@ namespace GameWatch.Persistence;
 // Use this on Razor pages
 public class UserContext : DbContext
 {
-    public DbSet<GameSchedule> GameSchedules { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<GameReleaseSubscription> GameSchedules { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder
             .UseNpgsql(
-                "Host=localhost;Port=5433;Database=gamewatch-db;Username=postgres;Password=Compaq2009"
+                "Host=localhost;Port=5433;Database=gamewatchdb;Username=postgres;Password=Compaq2009"
             )
             .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
     }

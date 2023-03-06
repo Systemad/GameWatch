@@ -1,11 +1,13 @@
 ﻿@page "/"
 @using System.Globalization
+@using GameWatch.Features.IGameDatabase.Models
 @layout PageWrapper
 
 <PageTitle>Home</PageTitle>
 
 <MudText Typo="Typo.h4" Align="Align.Center">Games released this month</MudText>
-<MudText Typo="Typo.h4" Align="Align.Center">@_selectedDate.ToString("MMMM", CultureInfo.InvariantCulture)</MudText>
+<MudText Typo="Typo.h4" Align="Align.Center">@CurrentDate.ToString("MMMM", CultureInfo.InvariantCulture)</MudText>
+
 
 @if (Games is not null)
 {
@@ -20,5 +22,14 @@
 }
 else
 {
-    <p>loading</p>
+    <MudGrid Class="mt-8" Justify="Justify.Center">
+    @for(int i = 0; i < 20; i++)
+    {
+        <MudItem xs="4">
+            <GameCard /> 
+            </MudItem>
+
+    }
+    </MudGrid>   
+    
 }

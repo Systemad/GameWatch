@@ -1,9 +1,8 @@
 ﻿using System.Net;
+using System.Text.Json;
 using Flurl;
 using Flurl.Http;
 using GameWatch.Features.Auth;
-using GameWatch.Features.IGameDatabase.Models;
-using GameWatch.Utilities;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using Polly;
@@ -29,36 +28,9 @@ public class GameDatabaseApi : IGameDatabaseApi
         _cache = cache;
     }
 
-    public async Task<Game[]> GetGamesByIdAsync(string[] ids)
+    public async Task<T> GenericFetch<T>(string url, string body)
     {
-        //var query = new StringBuilder(50);
-        //var games = string.Join(",", ids);
-        //query.Append($"*; where id = ({games})");
-        var body = $"fields *; where id = ({string.Join(",", ids)})";
-        var url = "https://api.igdb.com/v4/games"; //.SetQueryParam("fields", query);
-        var result = await FetchApi<Game[]>(url, body);
-        return result;
-    }
-
-    public async Task<Game> GetGameAsync(string id)
-    {
-        var body = $"fields *; where id = {id}";
-        var url = "https://api.igdb.com/v4/games";
-        var result = await FetchApi<Game>(url, body);
-        return result;
-    }
-
-    public async Task<Game[]> GetGamesByMonthAsync(int year, int month)
-    {
-        // *; where date > 1675256460 & date < 1677848460; sort date asc;
-        // Specify dates in unix epoch
-        var unixPre = new DateTime(year, month, 1).ConvertDateTimeToUnix();
-        var unixPast = new DateTime(year, month, 31).ConvertDateTimeToUnix();
-
-        var body = $"fields *; where date > {unixPre} & date < {unixPast}; sort date asc;";
-        var url = "https://api.igdb.com/v4/release_dates"; //.SetQueryParam(query);
-
-        var result = await FetchApi<Game[]>(url, body);
+        var result = await FetchApi<T>(url, body);
         return result;
     }
 
@@ -92,16 +64,17 @@ public class GameDatabaseApi : IGameDatabaseApi
                     .WithHeader("Client-Id", clientId)
                     .WithOAuthBearerToken(token)
                     .PostAsync(new StringContent(body))
-                    .ReceiveJson<T>()
+                    .ReceiveString()
         );
 
+        // Workaround, flurl receiving a type directly does not serialize properly
+        var deserialize = JsonSerializer.Deserialize<T>(response);
         var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(
             TimeSpan.FromDays(30)
         );
-
-        cacheKey = Guid.NewGuid();
-        _cacheKeys.Add(body, cacheKey);
-        _cache.Set(cacheKey, response, cacheEntryOptions);
-        return response;
+        //cacheKey = Guid.NewGuid();
+        //_cacheKeys.Add(body, cacheKey);
+        //_cache.Set(cacheKey, response, cacheEntryOptions);
+        return deserialize;
     }
 }

@@ -1,0 +1,1187 @@
+[
+  {
+    "id": 1942,
+    "age_ratings": [
+      {
+        "id": 32441,
+        "category": 2,
+        "rating": 5
+      },
+      {
+        "id": 46963,
+        "category": 4,
+        "rating": 22
+      },
+      {
+        "id": 57460,
+        "category": 1,
+        "rating": 11
+      },
+      {
+        "id": 67455,
+        "category": 3,
+        "rating": 17
+      },
+      {
+        "id": 78138,
+        "category": 5,
+        "rating": 26
+      },
+      {
+        "id": 78139,
+        "category": 6,
+        "rating": 32
+      },
+      {
+        "id": 78140,
+        "category": 7,
+        "rating": 38
+      }
+    ],
+    "artworks": [
+      {
+        "id": 142,
+        "image_id": "wljha2ztkh9uuoq3vqvr"
+      },
+      {
+        "id": 143,
+        "image_id": "focpusrcrxothhcspvva"
+      },
+      {
+        "id": 144,
+        "image_id": "noyr6v8gapsogymbwgc8"
+      },
+      {
+        "id": 145,
+        "image_id": "lvtyjjjuouwq3wbgmoom"
+      },
+      {
+        "id": 146,
+        "image_id": "dvyikxjxejnkhjaofzmt"
+      },
+      {
+        "id": 147,
+        "image_id": "pj5z48so48o73xqqzbfp"
+      },
+      {
+        "id": 148,
+        "image_id": "xblqrzuujkvqniqxyxuu"
+      },
+      {
+        "id": 149,
+        "image_id": "nzx7paeacyvpviji6022"
+      },
+      {
+        "id": 150,
+        "image_id": "p6lhjientc4g7rnq6mhs"
+      },
+      {
+        "id": 901,
+        "image_id": "azw3q6ggnru4hwmlansb"
+      },
+      {
+        "id": 1146,
+        "image_id": "tlmn8xicoz0j7j2ahxvy"
+      },
+      {
+        "id": 1147,
+        "image_id": "pwhylsl5nx0bgj5lz2ok"
+      },
+      {
+        "id": 1148,
+        "image_id": "rwznddfodf1x5mmj8zva"
+      }
+    ],
+    "category": 0,
+    "cover": {
+      "id": 89386,
+      "image_id": "co1wyy"
+    },
+    "first_release_date": 1431993600,
+    "game_engines": [
+      {
+        "id": 24,
+        "name": "REDengine"
+      }
+    ],
+    "game_modes": [
+      {
+        "id": 1,
+        "name": "Single player"
+      }
+    ],
+    "genres": [
+      {
+        "id": 12,
+        "name": "Role-playing (RPG)"
+      },
+      {
+        "id": 31,
+        "name": "Adventure"
+      }
+    ],
+    "involved_companies": [
+      {
+        "id": 17436,
+        "company": {
+          "id": 50,
+          "name": "WB Games"
+        },
+        "created_at": 1402444800,
+        "developer": false,
+        "game": 1942,
+        "porting": false,
+        "publisher": true,
+        "supporting": false,
+        "updated_at": 1402444800,
+        "checksum": "a0817274-20bf-2b0b-46fa-0b69324b1668"
+      },
+      {
+        "id": 17768,
+        "company": {
+          "id": 248,
+          "name": "Bandai Namco Entertainment"
+        },
+        "created_at": 1406332800,
+        "developer": false,
+        "game": 1942,
+        "porting": false,
+        "publisher": true,
+        "supporting": false,
+        "updated_at": 1406332800,
+        "checksum": "00d906c6-952e-3a99-a21f-9dc5a3b3437b"
+      },
+      {
+        "id": 17769,
+        "company": {
+          "id": 3119,
+          "name": "cdp.pl"
+        },
+        "created_at": 1406332800,
+        "developer": false,
+        "game": 1942,
+        "porting": false,
+        "publisher": true,
+        "supporting": false,
+        "updated_at": 1406332800,
+        "checksum": "4fa0a279-4919-8895-853d-76c4c2753129"
+      },
+      {
+        "id": 17771,
+        "company": {
+          "id": 1217,
+          "name": "Spike ChunSoft"
+        },
+        "created_at": 1406332800,
+        "developer": false,
+        "game": 1942,
+        "porting": false,
+        "publisher": true,
+        "supporting": false,
+        "updated_at": 1406332800,
+        "checksum": "ad74476d-119f-c9ad-95a1-64f03134be0e"
+      },
+      {
+        "id": 42142,
+        "company": {
+          "id": 908,
+          "name": "CD Projekt RED"
+        },
+        "created_at": 1480291200,
+        "developer": true,
+        "game": 1942,
+        "porting": false,
+        "publisher": false,
+        "supporting": false,
+        "updated_at": 1480291200,
+        "checksum": "39194819-40fa-2061-00dd-23b126221b3f"
+      },
+      {
+        "id": 64293,
+        "company": {
+          "id": 5696,
+          "name": "D3T Limited"
+        },
+        "created_at": 1523923200,
+        "developer": false,
+        "game": 1942,
+        "porting": false,
+        "publisher": false,
+        "supporting": true,
+        "updated_at": 1523923200,
+        "checksum": "dfa6fe05-5327-462f-d257-a2e5ec808e49"
+      },
+      {
+        "id": 196544,
+        "company": {
+          "id": 946,
+          "name": "Saber Interactive"
+        },
+        "created_at": 1671148098,
+        "developer": false,
+        "game": 1942,
+        "porting": true,
+        "publisher": false,
+        "supporting": false,
+        "updated_at": 1671151983,
+        "checksum": "6fc54582-13c1-8b78-541b-8304563349c4"
+      }
+    ],
+    "keywords": [
+      {
+        "id": 129,
+        "name": "blood"
+      },
+      {
+        "id": 151,
+        "name": "medieval"
+      },
+      {
+        "id": 227,
+        "name": "sword"
+      },
+      {
+        "id": 296,
+        "name": "fantasy"
+      },
+      {
+        "id": 537,
+        "name": "dark fantasy"
+      },
+      {
+        "id": 592,
+        "name": "elves"
+      },
+      {
+        "id": 617,
+        "name": "ps4"
+      },
+      {
+        "id": 623,
+        "name": "horse"
+      },
+      {
+        "id": 665,
+        "name": "drums"
+      },
+      {
+        "id": 770,
+        "name": "chicken"
+      },
+      {
+        "id": 823,
+        "name": "horse racing"
+      },
+      {
+        "id": 1026,
+        "name": "role playing"
+      },
+      {
+        "id": 1033,
+        "name": "action-adventure"
+      },
+      {
+        "id": 1098,
+        "name": "water"
+      },
+      {
+        "id": 1181,
+        "name": "fairy"
+      },
+      {
+        "id": 1293,
+        "name": "achievements"
+      },
+      {
+        "id": 1381,
+        "name": "princess"
+      },
+      {
+        "id": 1507,
+        "name": "rock"
+      },
+      {
+        "id": 1737,
+        "name": "ship"
+      },
+      {
+        "id": 2066,
+        "name": "dwarves"
+      },
+      {
+        "id": 2071,
+        "name": "sequel"
+      },
+      {
+        "id": 2112,
+        "name": "mushroom"
+      },
+      {
+        "id": 2242,
+        "name": "good vs evil"
+      },
+      {
+        "id": 2337,
+        "name": "flowers"
+      },
+      {
+        "id": 2414,
+        "name": "arrow"
+      },
+      {
+        "id": 2472,
+        "name": "sword \u0026 sorcery"
+      },
+      {
+        "id": 2513,
+        "name": "hook"
+      },
+      {
+        "id": 2668,
+        "name": "alchemy"
+      },
+      {
+        "id": 3794,
+        "name": "tree"
+      },
+      {
+        "id": 3901,
+        "name": "flags"
+      },
+      {
+        "id": 3910,
+        "name": "cloud"
+      },
+      {
+        "id": 4184,
+        "name": "apple"
+      },
+      {
+        "id": 4198,
+        "name": "plate"
+      },
+      {
+        "id": 4218,
+        "name": "coin"
+      },
+      {
+        "id": 4276,
+        "name": "dualshock 4 support for pc"
+      },
+      {
+        "id": 4287,
+        "name": "voice acting"
+      },
+      {
+        "id": 4316,
+        "name": "rope"
+      },
+      {
+        "id": 4319,
+        "name": "log"
+      },
+      {
+        "id": 4332,
+        "name": "tutorial"
+      },
+      {
+        "id": 4347,
+        "name": "language selection"
+      },
+      {
+        "id": 4352,
+        "name": "mind control"
+      },
+      {
+        "id": 4353,
+        "name": "human"
+      },
+      {
+        "id": 4357,
+        "name": "xbox one x enhanced"
+      },
+      {
+        "id": 4394,
+        "name": "dagger"
+      },
+      {
+        "id": 4418,
+        "name": "door"
+      },
+      {
+        "id": 4508,
+        "name": "knife"
+      },
+      {
+        "id": 4520,
+        "name": "origin"
+      },
+      {
+        "id": 4548,
+        "name": "beard"
+      },
+      {
+        "id": 4552,
+        "name": "helmet"
+      },
+      {
+        "id": 4573,
+        "name": "skull"
+      },
+      {
+        "id": 4576,
+        "name": "loading screens"
+      },
+      {
+        "id": 4588,
+        "name": "gamma adjustment"
+      },
+      {
+        "id": 4591,
+        "name": "paintings"
+      },
+      {
+        "id": 4615,
+        "name": "profanity"
+      },
+      {
+        "id": 4619,
+        "name": "gog.com"
+      },
+      {
+        "id": 4628,
+        "name": "candle"
+      },
+      {
+        "id": 4637,
+        "name": "corpse"
+      },
+      {
+        "id": 4745,
+        "name": "campfire"
+      },
+      {
+        "id": 4753,
+        "name": "feather"
+      },
+      {
+        "id": 4756,
+        "name": "grass"
+      },
+      {
+        "id": 4763,
+        "name": "bone"
+      },
+      {
+        "id": 4843,
+        "name": "saving the world"
+      },
+      {
+        "id": 4848,
+        "name": "torch"
+      },
+      {
+        "id": 4852,
+        "name": "side quests"
+      },
+      {
+        "id": 4869,
+        "name": "downloadable content"
+      },
+      {
+        "id": 4878,
+        "name": "questing"
+      },
+      {
+        "id": 4880,
+        "name": "barrel"
+      },
+      {
+        "id": 4896,
+        "name": "subtitles"
+      },
+      {
+        "id": 4907,
+        "name": "gloves"
+      },
+      {
+        "id": 5029,
+        "name": "difficulty level"
+      },
+      {
+        "id": 5150,
+        "name": "wilhelm scream"
+      },
+      {
+        "id": 5286,
+        "name": "automatic input device detection"
+      },
+      {
+        "id": 5298,
+        "name": "belt"
+      },
+      {
+        "id": 5318,
+        "name": "d.i.c.e. awards 2016"
+      },
+      {
+        "id": 5351,
+        "name": "stone"
+      },
+      {
+        "id": 5362,
+        "name": "boat"
+      },
+      {
+        "id": 5365,
+        "name": "chains"
+      },
+      {
+        "id": 5367,
+        "name": "oar"
+      },
+      {
+        "id": 5369,
+        "name": "minimap"
+      },
+      {
+        "id": 5374,
+        "name": "magic staff"
+      },
+      {
+        "id": 5391,
+        "name": "ponytail"
+      },
+      {
+        "id": 5422,
+        "name": "bread"
+      },
+      {
+        "id": 5427,
+        "name": "bucket"
+      },
+      {
+        "id": 5460,
+        "name": "game developers choice awards 2016"
+      },
+      {
+        "id": 5502,
+        "name": "2\" x 4\u0027\u0027"
+      },
+      {
+        "id": 5504,
+        "name": "wood"
+      },
+      {
+        "id": 5616,
+        "name": "boots"
+      },
+      {
+        "id": 5646,
+        "name": "flute"
+      },
+      {
+        "id": 5650,
+        "name": "cart"
+      },
+      {
+        "id": 5705,
+        "name": "necklace"
+      },
+      {
+        "id": 5708,
+        "name": "throne"
+      },
+      {
+        "id": 5709,
+        "name": "cauldron"
+      },
+      {
+        "id": 5771,
+        "name": "clothesline"
+      },
+      {
+        "id": 5788,
+        "name": "pine tree"
+      },
+      {
+        "id": 5795,
+        "name": "great axe"
+      },
+      {
+        "id": 5852,
+        "name": "merfolk"
+      },
+      {
+        "id": 5902,
+        "name": "eye scars"
+      },
+      {
+        "id": 5978,
+        "name": "saw"
+      },
+      {
+        "id": 6068,
+        "name": "non-standard difficulty titles"
+      },
+      {
+        "id": 6120,
+        "name": "speedtree"
+      },
+      {
+        "id": 6128,
+        "name": "breath meter"
+      },
+      {
+        "id": 6196,
+        "name": "freelc"
+      },
+      {
+        "id": 6214,
+        "name": "day one patch"
+      },
+      {
+        "id": 6415,
+        "name": "meat cleaver"
+      },
+      {
+        "id": 6430,
+        "name": "nail"
+      },
+      {
+        "id": 6478,
+        "name": "shirt"
+      },
+      {
+        "id": 6653,
+        "name": "fire manipulation"
+      },
+      {
+        "id": 6657,
+        "name": "blacksmith"
+      },
+      {
+        "id": 6668,
+        "name": "anvil"
+      },
+      {
+        "id": 6681,
+        "name": "gnomes"
+      },
+      {
+        "id": 6683,
+        "name": "halflings"
+      },
+      {
+        "id": 6685,
+        "name": "half elves"
+      },
+      {
+        "id": 6688,
+        "name": "half-orcs"
+      },
+      {
+        "id": 6858,
+        "name": "cockatrice"
+      },
+      {
+        "id": 6904,
+        "name": "wheat"
+      },
+      {
+        "id": 7078,
+        "name": "corset"
+      },
+      {
+        "id": 7143,
+        "name": "saltpeter"
+      },
+      {
+        "id": 7379,
+        "name": "goose"
+      },
+      {
+        "id": 7416,
+        "name": "creature compendium"
+      },
+      {
+        "id": 7470,
+        "name": "where are they now? ending"
+      },
+      {
+        "id": 7659,
+        "name": "playable epilogue"
+      },
+      {
+        "id": 7664,
+        "name": "root"
+      },
+      {
+        "id": 8193,
+        "name": "air manipulation"
+      },
+      {
+        "id": 8194,
+        "name": "talking trees"
+      },
+      {
+        "id": 8195,
+        "name": "open-air preaching"
+      },
+      {
+        "id": 8196,
+        "name": "slip cover packaging"
+      },
+      {
+        "id": 8197,
+        "name": "the wild hunt"
+      },
+      {
+        "id": 8198,
+        "name": "garlic"
+      },
+      {
+        "id": 8199,
+        "name": "ore"
+      },
+      {
+        "id": 8200,
+        "name": "saddle"
+      },
+      {
+        "id": 8201,
+        "name": "string"
+      },
+      {
+        "id": 8202,
+        "name": "silver sword"
+      },
+      {
+        "id": 15075,
+        "name": "world premiere - 2014 (the game awards)"
+      },
+      {
+        "id": 15076,
+        "name": "the game awards 2014"
+      },
+      {
+        "id": 16826,
+        "name": "4k ultra hd"
+      },
+      {
+        "id": 16828,
+        "name": "hdr"
+      },
+      {
+        "id": 16894,
+        "name": "hdr10"
+      },
+      {
+        "id": 18160,
+        "name": "witcher"
+      },
+      {
+        "id": 18730,
+        "name": "wb games"
+      },
+      {
+        "id": 19424,
+        "name": "the witcher 3: wild hunt"
+      },
+      {
+        "id": 19425,
+        "name": "witcher 3"
+      },
+      {
+        "id": 19426,
+        "name": "wild hunt"
+      }
+    ],
+    "name": "The Witcher 3: Wild Hunt",
+    "platforms": [
+      {
+        "id": 6,
+        "name": "PC (Microsoft Windows)"
+      },
+      {
+        "id": 48,
+        "name": "PlayStation 4"
+      },
+      {
+        "id": 49,
+        "name": "Xbox One"
+      },
+      {
+        "id": 130,
+        "name": "Nintendo Switch"
+      },
+      {
+        "id": 167,
+        "name": "PlayStation 5"
+      },
+      {
+        "id": 169,
+        "name": "Xbox Series X|S"
+      }
+    ],
+    "player_perspectives": [
+      {
+        "id": 2,
+        "name": "Third person"
+      }
+    ],
+    "rating": 94.8589321035818,
+    "release_dates": [
+      {
+        "id": 23743,
+        "category": 0,
+        "created_at": 1418058443,
+        "date": 1431993600,
+        "game": 1942,
+        "human": "May 19, 2015",
+        "m": 5,
+        "platform": {
+          "id": 6,
+          "name": "PC (Microsoft Windows)"
+        },
+        "region": 8,
+        "updated_at": 1418063054,
+        "y": 2015,
+        "checksum": "ae4a2c8f-f61a-cc8b-63a0-86c432460376"
+      },
+      {
+        "id": 23744,
+        "category": 0,
+        "created_at": 1418058443,
+        "date": 1431993600,
+        "game": 1942,
+        "human": "May 19, 2015",
+        "m": 5,
+        "platform": {
+          "id": 49,
+          "name": "Xbox One"
+        },
+        "region": 8,
+        "updated_at": 1418063054,
+        "y": 2015,
+        "checksum": "62b7316c-284a-b772-fdf2-44eedf6aa51b"
+      },
+      {
+        "id": 23745,
+        "category": 0,
+        "created_at": 1418058443,
+        "date": 1431993600,
+        "game": 1942,
+        "human": "May 19, 2015",
+        "m": 5,
+        "platform": {
+          "id": 48,
+          "name": "PlayStation 4"
+        },
+        "region": 8,
+        "updated_at": 1418063054,
+        "y": 2015,
+        "checksum": "66161315-0878-ec86-6e3a-0dd0005f096b"
+      },
+      {
+        "id": 226672,
+        "category": 0,
+        "created_at": 1611968829,
+        "date": 1611792000,
+        "game": 1942,
+        "human": "Jan 28, 2021",
+        "m": 1,
+        "platform": {
+          "id": 130,
+          "name": "Nintendo Switch"
+        },
+        "region": 8,
+        "updated_at": 1611971357,
+        "y": 2021,
+        "checksum": "e79a65cd-689a-98f1-3295-1838929d4b86"
+      },
+      {
+        "id": 430627,
+        "category": 0,
+        "created_at": 1671022820,
+        "date": 1670976000,
+        "game": 1942,
+        "human": "Dec 14, 2022",
+        "m": 12,
+        "platform": {
+          "id": 167,
+          "name": "PlayStation 5"
+        },
+        "region": 8,
+        "updated_at": 1671025335,
+        "y": 2022,
+        "checksum": "722c80b3-3d7e-afbd-4441-9a581a1bb9c6"
+      },
+      {
+        "id": 431187,
+        "category": 0,
+        "created_at": 1671148098,
+        "date": 1670976000,
+        "game": 1942,
+        "human": "Dec 14, 2022",
+        "m": 12,
+        "platform": {
+          "id": 169,
+          "name": "Xbox Series X|S"
+        },
+        "region": 8,
+        "updated_at": 1671151983,
+        "y": 2022,
+        "checksum": "525c22cf-9bd8-2ee0-4c01-f5abab4c0958"
+      }
+    ],
+    "screenshots": [
+      {
+        "id": 9742,
+        "image_id": "mnljdjtrh44x4snmierh"
+      },
+      {
+        "id": 9743,
+        "image_id": "em1y2ugcwy2myuhvb9db"
+      },
+      {
+        "id": 9744,
+        "image_id": "usxccsncekxg0wd1v6ee"
+      },
+      {
+        "id": 9745,
+        "image_id": "z5t0yuhyiiui1ickwhgj"
+      },
+      {
+        "id": 21107,
+        "image_id": "farvemmmxav0bgt6wx7t"
+      },
+      {
+        "id": 853177,
+        "image_id": "sciabd"
+      },
+      {
+        "id": 853178,
+        "image_id": "sciabe"
+      },
+      {
+        "id": 853179,
+        "image_id": "sciabf"
+      },
+      {
+        "id": 853180,
+        "image_id": "sciabg"
+      },
+      {
+        "id": 853181,
+        "image_id": "sciabh"
+      }
+    ],
+    "similar_games": [
+      {
+        "id": 80,
+        "cover": {
+          "id": 90429,
+          "image_id": "co1xrx"
+        },
+        "name": "The Witcher"
+      },
+      {
+        "id": 121,
+        "cover": {
+          "id": 199481,
+          "image_id": "co49x5"
+        },
+        "name": "Minecraft"
+      },
+      {
+        "id": 472,
+        "cover": {
+          "id": 85100,
+          "image_id": "co1tnw"
+        },
+        "name": "The Elder Scrolls V: Skyrim"
+      },
+      {
+        "id": 533,
+        "cover": {
+          "id": 266140,
+          "image_id": "co5pcs"
+        },
+        "name": "Dishonored"
+      },
+      {
+        "id": 1334,
+        "cover": {
+          "id": 82644,
+          "image_id": "co1rro"
+        },
+        "name": "Brothers: A Tale of Two Sons"
+      },
+      {
+        "id": 1593,
+        "cover": {
+          "id": 82246,
+          "image_id": "co1rgm"
+        },
+        "name": "Pillars of Eternity"
+      },
+      {
+        "id": 1887,
+        "cover": {
+          "id": 122974,
+          "image_id": "co2mvy"
+        },
+        "name": "Dragon Age: Inquisition"
+      },
+      {
+        "id": 3025,
+        "cover": {
+          "id": 94225,
+          "image_id": "co20pd"
+        },
+        "name": "Middle-earth: Shadow of Mordor"
+      },
+      {
+        "id": 9938,
+        "cover": {
+          "id": 82230,
+          "image_id": "co1rg6"
+        },
+        "name": "Aarklash: Legacy"
+      },
+      {
+        "id": 11270,
+        "cover": {
+          "id": 82220,
+          "image_id": "co1rfw"
+        },
+        "name": "The Cat Lady"
+      }
+    ],
+    "slug": "the-witcher-3-wild-hunt",
+    "storyline": "The Witcher 3: Wild Hunt concludes the story of the witcher Geralt of Rivia, the series\u0027 protagonist, whose story to date has been covered in the previous installments. Geralt\u0027s new mission comes in dark times as the mysterious and otherworldly army known as the Wild Hunt invades the Northern Kingdoms, leaving only blood soaked earth and fiery ruin in its wake; and it seems the Witcher is the key to stopping their cataclysmic rampage.",
+    "summary": "RPG and sequel to The Witcher 2 (2011), The Witcher 3 follows witcher Geralt of Rivia as he seeks out his former lover and his young subject while intermingling with the political workings of the wartorn Northern Kingdoms. Geralt has to fight monsters and deal with people of all sorts in order to solve complex problems and settle contentious disputes, each ranging from the personal to the world-changing.",
+    "themes": [
+      {
+        "id": 1,
+        "name": "Action"
+      },
+      {
+        "id": 17,
+        "name": "Fantasy"
+      },
+      {
+        "id": 38,
+        "name": "Open world"
+      }
+    ],
+    "url": "https://www.igdb.com/games/the-witcher-3-wild-hunt",
+    "websites": [
+      {
+        "id": 19101,
+        "category": 2,
+        "game": 1942,
+        "trusted": false,
+        "url": "http://witcher.wikia.com/wiki/The_Witcher_3:_Wild_Hunt",
+        "checksum": "45a5c3a7-56eb-788f-dd15-93d76c32987c"
+      },
+      {
+        "id": 19102,
+        "category": 3,
+        "game": 1942,
+        "trusted": true,
+        "url": "https://en.wikipedia.org/wiki/The_Witcher_3:_Wild_Hunt",
+        "checksum": "26a6acf5-25f9-a6fc-8825-31110641eda0"
+      },
+      {
+        "id": 19103,
+        "category": 4,
+        "game": 1942,
+        "trusted": true,
+        "url": "https://www.facebook.com/CDPROJEKTRED",
+        "checksum": "38f21467-96e6-6d05-622f-1014fe74cf6b"
+      },
+      {
+        "id": 19104,
+        "category": 5,
+        "game": 1942,
+        "trusted": true,
+        "url": "https://twitter.com/witchergame",
+        "checksum": "1cdecd2d-5e1f-fd9e-70a0-3eca947db995"
+      },
+      {
+        "id": 19105,
+        "category": 8,
+        "game": 1942,
+        "trusted": true,
+        "url": "https://www.instagram.com/cdpred",
+        "checksum": "2eddd358-00f1-6645-8009-fbf1cda5bb28"
+      },
+      {
+        "id": 19106,
+        "category": 9,
+        "game": 1942,
+        "trusted": true,
+        "url": "https://www.youtube.com/user/WitcherGame",
+        "checksum": "3e315f79-fda6-8f90-2644-309d83840b6d"
+      },
+      {
+        "id": 19107,
+        "category": 13,
+        "game": 1942,
+        "trusted": true,
+        "url": "https://store.steampowered.com/app/292030",
+        "checksum": "4daf3ac7-8dcc-f236-ffb8-3273c23db7f4"
+      },
+      {
+        "id": 66471,
+        "category": 1,
+        "game": 1942,
+        "trusted": false,
+        "url": "http://www.thewitcher.com",
+        "checksum": "4e3fb6c7-f58d-3ae5-6e8f-9f4a71d74fb4"
+      },
+      {
+        "id": 78076,
+        "category": 14,
+        "game": 1942,
+        "trusted": true,
+        "url": "https://www.reddit.com/r/witcher",
+        "checksum": "523598f5-cddc-b28a-daeb-1c4b3203dbfb"
+      },
+      {
+        "id": 119948,
+        "category": 17,
+        "game": 1942,
+        "trusted": true,
+        "url": "https://www.gog.com/game/the_witcher_3_wild_hunt",
+        "checksum": "1d7b6862-d35e-6283-e788-c8424b77eb48"
+      },
+      {
+        "id": 141346,
+        "category": 16,
+        "game": 1942,
+        "trusted": true,
+        "url": "https://www.epicgames.com/store/en-US/product/the-witcher-3-wild-hunt/home",
+        "checksum": "89de1ab6-cc07-d9dd-bb44-f7576b334f45"
+      },
+      {
+        "id": 141347,
+        "category": 18,
+        "game": 1942,
+        "trusted": true,
+        "url": "https://discord.gg/discord.gg/thewitcher",
+        "checksum": "70999d2e-4e89-8b32-3798-a103e3536e20"
+      },
+      {
+        "id": 512145,
+        "category": 6,
+        "game": 1942,
+        "trusted": true,
+        "url": "https://www.twitch.tv/directory/game/The%20Witcher%203:%20Wild%20Hunt",
+        "checksum": "aa9aa1e1-651d-0b00-76ac-883cf55f9565"
+      }
+    ]
+  }
+]

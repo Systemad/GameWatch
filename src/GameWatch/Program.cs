@@ -23,7 +23,7 @@ builder.Host.UseSerilog();
 
 builder.Services.AddMemoryCache();
 
-// Builds options with Twitch keys, which will be used from IOption<TwitchOpions>
+// Builds options with Twitch keys, which will be used from IOption<TwitchOptions>
 builder.Services
     .AddOptions<TwitchOptions>()
     .Bind(builder.Configuration.GetSection(TwitchOptions.Twitch));
@@ -111,16 +111,16 @@ app.MapFallbackToPage("/_Host");
 if (builder.Environment.IsDevelopment())
 {
     //var context = scope.ServiceProvider.GetRequiredService<DbContext<GameWatchContext>>();
-    //await using var context = new GameWatchDbContext();
-    //await context.Database.EnsureDeletedAsync();
-    //await context.Database.EnsureCreatedAsync();
+    await using var context = new GameContext();
+    await context.Database.EnsureDeletedAsync();
+    await context.Database.EnsureCreatedAsync();
 }
 
+/*
 var schedulerFactory = app.Services.GetRequiredService<ISchedulerFactory>();
 var scheduler = await schedulerFactory.GetScheduler();
 
 // This job triggers every 24 hours for 2 minutes to fetch all games from IGDB and store into a database
-
 var job = JobBuilder.Create<FetchGamesJob>().WithIdentity("FetchGamesJob", "igdb").Build();
 
 var trigger = TriggerBuilder
@@ -131,5 +131,6 @@ var trigger = TriggerBuilder
     .Build();
 
 await scheduler.ScheduleJob(job, trigger);
+*/
 
 app.Run();
